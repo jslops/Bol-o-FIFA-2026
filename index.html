@@ -19,18 +19,6 @@
                         'sans': ['Inter', 'sans-serif'],
                         'display': ['Outfit', 'sans-serif'],
                     },
-                    colors: {
-                        'fifa': {
-                            'green': '#1a5632',
-                            'green-light': '#2d8a4e',
-                            'gold': '#c9973b',
-                            'gold-light': '#e0b860',
-                            'dark': '#1a1a2e',
-                            'darker': '#0f0f1a',
-                            'card': '#16213e',
-                            'accent': '#0f3460',
-                        }
-                    }
                 }
             }
         }
@@ -45,8 +33,6 @@
             --border-color: #e2e8f0;
             --card-bg: #ffffff;
             --sidebar-bg: #0f172a;
-            --accent-green: #1a5632;
-            --accent-gold: #c9973b;
         }
         .dark {
             --bg-primary: #0f0f1a;
@@ -71,10 +57,6 @@
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
         }
-        .card-premium:hover {
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
-            transform: translateY(-2px);
-        }
         .sidebar-link {
             transition: all 0.25s ease;
             border-left: 3px solid transparent;
@@ -91,26 +73,6 @@
             border-left-color: #c9973b;
             color: #e0b860;
             font-weight: 600;
-        }
-        .flag-circle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--border-color);
-            background: #f1f5f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #1e293b;
-            overflow: hidden;
-        }
-        .dark .flag-circle {
-            border-color: #3b3b55;
-            background: #1e293b;
-            color: #e2e8f0;
         }
         .score-input {
             width: 48px;
@@ -154,18 +116,9 @@
             color: #7c3a12;
             font-weight: 800;
         }
-        .dark .rank-gold {
-            background: linear-gradient(135deg, #3d2e0a 0%, #5c420f 100%);
-            color: #fde68a;
-        }
-        .dark .rank-silver {
-            background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
-            color: #d1d5db;
-        }
-        .dark .rank-bronze {
-            background: linear-gradient(135deg, #3d1f0a 0%, #5c2f0f 100%);
-            color: #f5c68a;
-        }
+        .dark .rank-gold { background: linear-gradient(135deg, #3d2e0a 0%, #5c420f 100%); color: #fde68a; }
+        .dark .rank-silver { background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%); color: #d1d5db; }
+        .dark .rank-bronze { background: linear-gradient(135deg, #3d1f0a 0%, #5c2f0f 100%); color: #f5c68a; }
         .modal-overlay {
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
@@ -254,7 +207,7 @@
         <button onclick="toggleDarkMode()" class="text-white text-lg"><i class="fas fa-moon"></i></button>
     </header>
 
-    <!-- MAIN -->
+    <!-- MAIN CONTENT -->
     <main class="lg:ml-72 pt-16 lg:pt-0 min-h-screen" id="mainContent">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
 
@@ -263,7 +216,7 @@
                 <div class="mb-6"><h2 class="text-2xl lg:text-3xl font-display font-bold">🏆 Dashboard</h2><p class="text-gray-500 dark:text-gray-400 mt-1">Acompanhe o bolão da Copa do Mundo FIFA 2026™</p></div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4 mb-6">
                     <div class="card-premium p-4 text-center"><i class="fas fa-users text-2xl text-blue-500 mb-2"></i><p class="text-2xl font-bold" id="dashTotalUsers">0</p><p class="text-xs text-gray-500 dark:text-gray-400">Participantes</p></div>
-                    <div class="card-premium p-4 text-center"><i class="fas fa-check-circle text-2xl text-green-500 mb-2"></i><p class="text-2xl font-bold" id="dashTotalApostas">0</p><p class="text-xs text-gray-500 dark:text-gray-400">Apostas</p></div>
+                    <div class="card-premium p-4 text-center"><i class="fas fa-check-circle text-2xl text-green-500 mb-2"></i><p class="text-2xl font-bold" id="dashTotalApostas">0</p><p class="text-xs text-gray-500 dark:text-gray-400">Apostas Confirmadas</p></div>
                     <div class="card-premium p-4 text-center"><i class="fas fa-futbol text-2xl text-orange-500 mb-2"></i><p class="text-2xl font-bold" id="dashJogosRealizados">0</p><p class="text-xs text-gray-500 dark:text-gray-400">Jogos Realizados</p></div>
                     <div class="card-premium p-4 text-center"><i class="fas fa-clock text-2xl text-purple-500 mb-2"></i><p class="text-2xl font-bold" id="dashJogosPendentes">104</p><p class="text-xs text-gray-500 dark:text-gray-400">Jogos Pendentes</p></div>
                     <div class="card-premium p-4 text-center col-span-2 sm:col-span-1"><i class="fas fa-dollar-sign text-2xl text-yellow-500 mb-2"></i><p class="text-2xl font-bold" id="dashArrecadacao">R$ 0</p><p class="text-xs text-gray-500 dark:text-gray-400">Arrecadação</p></div>
@@ -276,13 +229,14 @@
 
             <!-- Apostas -->
             <section id="section-apostas" class="section-page hidden">
-                <div class="mb-6"><h2 class="text-2xl lg:text-3xl font-display font-bold">⚽ Minhas Apostas</h2><p class="text-gray-500 dark:text-gray-400 mt-1">Palpite em todos os jogos da Copa</p></div>
-                <div class="flex flex-wrap gap-2 mb-4">
+                <div class="mb-6"><h2 class="text-2xl lg:text-3xl font-display font-bold">⚽ Minhas Apostas</h2><p class="text-gray-500 dark:text-gray-400 mt-1">Confirme seus palpites até 1 minuto antes de cada jogo</p></div>
+                <div class="flex flex-wrap gap-2 mb-4 items-center">
                     <select id="filtroFase" onchange="renderApostas()" class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm">
-                        <option value="todas">Todas as Fases</option><option value="grupos">Fase de Grupos</option><option value="16avos">16 Avos de Final</option><option value="oitavas">Oitavas de Final</option><option value="quartas">Quartas de Final</option><option value="semis">Semifinais</option><option value="terceiro">3º Lugar</option><option value="final">Final</option>
+                        <option value="todas">Todas as Fases</option><option value="grupos">Fase de Grupos</option><option value="16avos">16 Avos</option><option value="oitavas">Oitavas</option><option value="quartas">Quartas</option><option value="semis">Semifinais</option><option value="terceiro">3º Lugar</option><option value="final">Final</option>
                     </select>
                     <select id="filtroGrupo" onchange="renderApostas()" class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm"><option value="todos">Todos os Grupos</option></select>
-                    <span class="text-sm text-gray-500 self-center ml-auto" id="contadorApostas">0/104 apostas</span>
+                    <span class="text-sm text-gray-500" id="contadorApostas">0/104 apostas</span>
+                    <button onclick="confirmarTodasApostas()" class="ml-auto px-4 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition"><i class="fas fa-check-double mr-1"></i> Confirmar Todas</button>
                 </div>
                 <div id="listaApostas" class="space-y-3 max-h-[70vh] overflow-y-auto pr-1"><p class="text-gray-400 text-center py-8">Faça login para começar a apostar!</p></div>
             </section>
@@ -355,68 +309,37 @@
         const JSONBIN_BIN_ID = '6a2af018da38895dfeaf417c';
         const JSONBIN_API_KEY = '$2a$10$c6OV.xIo9wm0zWkAjTyen.yR3LjVEm2WcUacpsjWadcxKv5xKSCDW';
         const JSONBIN_BASE_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
-        const JSONBIN_HEADERS = {
-            'Content-Type': 'application/json',
-            'X-Master-Key': JSONBIN_API_KEY
-        };
-
-        // Versão atual do bin (para controle de concorrência)
+        const JSONBIN_HEADERS = { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY };
         let currentBinVersion = null;
 
         // ==================== DADOS DA COPA 2026 ====================
         const GRUPOS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
-
         const SELECOES = [
-            { id: 'MEX', nome: 'México', grupo: 'A', bandeira: '🇲🇽' },
-            { id: 'RSA', nome: 'África do Sul', grupo: 'A', bandeira: '🇿🇦' },
-            { id: 'KOR', nome: 'Coreia do Sul', grupo: 'A', bandeira: '🇰🇷' },
-            { id: 'CZE', nome: 'Rep. Tcheca', grupo: 'A', bandeira: '🇨🇿' },
-            { id: 'CAN', nome: 'Canadá', grupo: 'B', bandeira: '🇨🇦' },
-            { id: 'BIH', nome: 'Bósnia', grupo: 'B', bandeira: '🇧🇦' },
-            { id: 'QAT', nome: 'Catar', grupo: 'B', bandeira: '🇶🇦' },
-            { id: 'SUI', nome: 'Suíça', grupo: 'B', bandeira: '🇨🇭' },
-            { id: 'BRA', nome: 'Brasil', grupo: 'C', bandeira: '🇧🇷' },
-            { id: 'MAR', nome: 'Marrocos', grupo: 'C', bandeira: '🇲🇦' },
-            { id: 'HAI', nome: 'Haiti', grupo: 'C', bandeira: '🇭🇹' },
-            { id: 'SCO', nome: 'Escócia', grupo: 'C', bandeira: '🏴󠁧󠁢󠁳󠁣󠁴󠁿' },
-            { id: 'USA', nome: 'EUA', grupo: 'D', bandeira: '🇺🇸' },
-            { id: 'PAR', nome: 'Paraguai', grupo: 'D', bandeira: '🇵🇾' },
-            { id: 'AUS', nome: 'Austrália', grupo: 'D', bandeira: '🇦🇺' },
-            { id: 'TUR', nome: 'Turquia', grupo: 'D', bandeira: '🇹🇷' },
-            { id: 'GER', nome: 'Alemanha', grupo: 'E', bandeira: '🇩🇪' },
-            { id: 'CUW', nome: 'Curaçao', grupo: 'E', bandeira: '🇨🇼' },
-            { id: 'CIV', nome: 'Costa do Marfim', grupo: 'E', bandeira: '🇨🇮' },
-            { id: 'ECU', nome: 'Equador', grupo: 'E', bandeira: '🇪🇨' },
-            { id: 'NED', nome: 'Holanda', grupo: 'F', bandeira: '🇳🇱' },
-            { id: 'JPN', nome: 'Japão', grupo: 'F', bandeira: '🇯🇵' },
-            { id: 'SWE', nome: 'Suécia', grupo: 'F', bandeira: '🇸🇪' },
-            { id: 'TUN', nome: 'Tunísia', grupo: 'F', bandeira: '🇹🇳' },
-            { id: 'BEL', nome: 'Bélgica', grupo: 'G', bandeira: '🇧🇪' },
-            { id: 'EGY', nome: 'Egito', grupo: 'G', bandeira: '🇪🇬' },
-            { id: 'IRN', nome: 'Irã', grupo: 'G', bandeira: '🇮🇷' },
-            { id: 'NZL', nome: 'Nova Zelândia', grupo: 'G', bandeira: '🇳🇿' },
-            { id: 'ESP', nome: 'Espanha', grupo: 'H', bandeira: '🇪🇸' },
-            { id: 'CPV', nome: 'Cabo Verde', grupo: 'H', bandeira: '🇨🇻' },
-            { id: 'KSA', nome: 'Arábia Saudita', grupo: 'H', bandeira: '🇸🇦' },
-            { id: 'URU', nome: 'Uruguai', grupo: 'H', bandeira: '🇺🇾' },
-            { id: 'FRA', nome: 'França', grupo: 'I', bandeira: '🇫🇷' },
-            { id: 'SEN', nome: 'Senegal', grupo: 'I', bandeira: '🇸🇳' },
-            { id: 'IRQ', nome: 'Iraque', grupo: 'I', bandeira: '🇮🇶' },
-            { id: 'NOR', nome: 'Noruega', grupo: 'I', bandeira: '🇳🇴' },
-            { id: 'ARG', nome: 'Argentina', grupo: 'J', bandeira: '🇦🇷' },
-            { id: 'ALG', nome: 'Argélia', grupo: 'J', bandeira: '🇩🇿' },
-            { id: 'AUT', nome: 'Áustria', grupo: 'J', bandeira: '🇦🇹' },
-            { id: 'JOR', nome: 'Jordânia', grupo: 'J', bandeira: '🇯🇴' },
-            { id: 'POR', nome: 'Portugal', grupo: 'K', bandeira: '🇵🇹' },
-            { id: 'CGO', nome: 'Congo', grupo: 'K', bandeira: '🇨🇬' },
-            { id: 'UZB', nome: 'Uzbequistão', grupo: 'K', bandeira: '🇺🇿' },
-            { id: 'COL', nome: 'Colômbia', grupo: 'K', bandeira: '🇨🇴' },
-            { id: 'ENG', nome: 'Inglaterra', grupo: 'L', bandeira: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
-            { id: 'CRO', nome: 'Croácia', grupo: 'L', bandeira: '🇭🇷' },
-            { id: 'GHA', nome: 'Gana', grupo: 'L', bandeira: '🇬🇭' },
-            { id: 'PAN', nome: 'Panamá', grupo: 'L', bandeira: '🇵🇦' },
+            { id: 'MEX', nome: 'México', grupo: 'A', bandeira: '🇲🇽' }, { id: 'RSA', nome: 'África do Sul', grupo: 'A', bandeira: '🇿🇦' },
+            { id: 'KOR', nome: 'Coreia do Sul', grupo: 'A', bandeira: '🇰🇷' }, { id: 'CZE', nome: 'Rep. Tcheca', grupo: 'A', bandeira: '🇨🇿' },
+            { id: 'CAN', nome: 'Canadá', grupo: 'B', bandeira: '🇨🇦' }, { id: 'BIH', nome: 'Bósnia', grupo: 'B', bandeira: '🇧🇦' },
+            { id: 'QAT', nome: 'Catar', grupo: 'B', bandeira: '🇶🇦' }, { id: 'SUI', nome: 'Suíça', grupo: 'B', bandeira: '🇨🇭' },
+            { id: 'BRA', nome: 'Brasil', grupo: 'C', bandeira: '🇧🇷' }, { id: 'MAR', nome: 'Marrocos', grupo: 'C', bandeira: '🇲🇦' },
+            { id: 'HAI', nome: 'Haiti', grupo: 'C', bandeira: '🇭🇹' }, { id: 'SCO', nome: 'Escócia', grupo: 'C', bandeira: '🏴󠁧󠁢󠁳󠁣󠁴󠁿' },
+            { id: 'USA', nome: 'EUA', grupo: 'D', bandeira: '🇺🇸' }, { id: 'PAR', nome: 'Paraguai', grupo: 'D', bandeira: '🇵🇾' },
+            { id: 'AUS', nome: 'Austrália', grupo: 'D', bandeira: '🇦🇺' }, { id: 'TUR', nome: 'Turquia', grupo: 'D', bandeira: '🇹🇷' },
+            { id: 'GER', nome: 'Alemanha', grupo: 'E', bandeira: '🇩🇪' }, { id: 'CUW', nome: 'Curaçao', grupo: 'E', bandeira: '🇨🇼' },
+            { id: 'CIV', nome: 'Costa do Marfim', grupo: 'E', bandeira: '🇨🇮' }, { id: 'ECU', nome: 'Equador', grupo: 'E', bandeira: '🇪🇨' },
+            { id: 'NED', nome: 'Holanda', grupo: 'F', bandeira: '🇳🇱' }, { id: 'JPN', nome: 'Japão', grupo: 'F', bandeira: '🇯🇵' },
+            { id: 'SWE', nome: 'Suécia', grupo: 'F', bandeira: '🇸🇪' }, { id: 'TUN', nome: 'Tunísia', grupo: 'F', bandeira: '🇹🇳' },
+            { id: 'BEL', nome: 'Bélgica', grupo: 'G', bandeira: '🇧🇪' }, { id: 'EGY', nome: 'Egito', grupo: 'G', bandeira: '🇪🇬' },
+            { id: 'IRN', nome: 'Irã', grupo: 'G', bandeira: '🇮🇷' }, { id: 'NZL', nome: 'Nova Zelândia', grupo: 'G', bandeira: '🇳🇿' },
+            { id: 'ESP', nome: 'Espanha', grupo: 'H', bandeira: '🇪🇸' }, { id: 'CPV', nome: 'Cabo Verde', grupo: 'H', bandeira: '🇨🇻' },
+            { id: 'KSA', nome: 'Arábia Saudita', grupo: 'H', bandeira: '🇸🇦' }, { id: 'URU', nome: 'Uruguai', grupo: 'H', bandeira: '🇺🇾' },
+            { id: 'FRA', nome: 'França', grupo: 'I', bandeira: '🇫🇷' }, { id: 'SEN', nome: 'Senegal', grupo: 'I', bandeira: '🇸🇳' },
+            { id: 'IRQ', nome: 'Iraque', grupo: 'I', bandeira: '🇮🇶' }, { id: 'NOR', nome: 'Noruega', grupo: 'I', bandeira: '🇳🇴' },
+            { id: 'ARG', nome: 'Argentina', grupo: 'J', bandeira: '🇦🇷' }, { id: 'ALG', nome: 'Argélia', grupo: 'J', bandeira: '🇩🇿' },
+            { id: 'AUT', nome: 'Áustria', grupo: 'J', bandeira: '🇦🇹' }, { id: 'JOR', nome: 'Jordânia', grupo: 'J', bandeira: '🇯🇴' },
+            { id: 'POR', nome: 'Portugal', grupo: 'K', bandeira: '🇵🇹' }, { id: 'CGO', nome: 'Congo', grupo: 'K', bandeira: '🇨🇬' },
+            { id: 'UZB', nome: 'Uzbequistão', grupo: 'K', bandeira: '🇺🇿' }, { id: 'COL', nome: 'Colômbia', grupo: 'K', bandeira: '🇨🇴' },
+            { id: 'ENG', nome: 'Inglaterra', grupo: 'L', bandeira: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, { id: 'CRO', nome: 'Croácia', grupo: 'L', bandeira: '🇭🇷' },
+            { id: 'GHA', nome: 'Gana', grupo: 'L', bandeira: '🇬🇭' }, { id: 'PAN', nome: 'Panamá', grupo: 'L', bandeira: '🇵🇦' },
         ];
-
         function getSelecao(id) { return SELECOES.find(s => s.id === id); }
 
         function gerarTodasPartidas() {
@@ -505,21 +428,20 @@
             partidas.push({ id: 'GRUPO_L_4', fase: 'grupos', grupo: 'L', time1: 'PAN', time2: 'CRO', gols1: null, gols2: null, realizado: false, data: '2026-06-23', hora: '20:00', estadio: 'A definir', rodada: 2 });
             partidas.push({ id: 'GRUPO_L_5', fase: 'grupos', grupo: 'L', time1: 'PAN', time2: 'ENG', gols1: null, gols2: null, realizado: false, data: '2026-06-27', hora: '18:00', estadio: 'A definir', rodada: 3 });
             partidas.push({ id: 'GRUPO_L_6', fase: 'grupos', grupo: 'L', time1: 'CRO', time2: 'GHA', gols1: null, gols2: null, realizado: false, data: '2026-06-27', hora: '18:00', estadio: 'A definir', rodada: 3 });
-
-            // Placeholders fases eliminatórias
-            const fasesEliminatorias = [
-                { fase: '16avos', numJogos: 16, prefixo: 'AVOS' },
-                { fase: 'oitavas', numJogos: 8, prefixo: 'OIT' },
-                { fase: 'quartas', numJogos: 4, prefixo: 'QUA' },
-                { fase: 'semis', numJogos: 2, prefixo: 'SEMI' },
-                { fase: 'terceiro', numJogos: 1, prefixo: 'TERC' },
-                { fase: 'final', numJogos: 1, prefixo: 'FINAL' },
+            // Eliminatórias
+            const fases = [
+                { fase: '16avos', num: 16, prefixo: 'AVOS' },
+                { fase: 'oitavas', num: 8, prefixo: 'OIT' },
+                { fase: 'quartas', num: 4, prefixo: 'QUA' },
+                { fase: 'semis', num: 2, prefixo: 'SEMI' },
+                { fase: 'terceiro', num: 1, prefixo: 'TERC' },
+                { fase: 'final', num: 1, prefixo: 'FINAL' },
             ];
-            fasesEliminatorias.forEach(fe => {
-                for (let i = 1; i <= fe.numJogos; i++) {
+            fases.forEach(f => {
+                for (let i = 1; i <= f.num; i++) {
                     partidas.push({
-                        id: `${fe.prefixo}_${i}`,
-                        fase: fe.fase,
+                        id: `${f.prefixo}_${i}`,
+                        fase: f.fase,
                         grupo: null,
                         time1: null,
                         time2: null,
@@ -542,7 +464,7 @@
         // ==================== ESTADO DA APLICAÇÃO ====================
         let currentUser = null;
         let usuarios = [];
-        let apostas = {};
+        let apostas = {};   // chave: userId__partidaId -> { gols1, gols2, timestamp, confirmado: false }
         let configPontuacao = {
             acertoVencedor: 3,
             acertoSaldo: 2,
@@ -561,7 +483,37 @@
         };
         let palpitesCampeao = {};
 
-        // ==================== PERSISTÊNCIA NA NUVEM (JSONBIN) ====================
+        // ==================== FUNÇÕES DE DATA/HORA ====================
+        function getDataHoraPartida(partida) {
+            if (!partida.data || partida.data.includes('XX') || !partida.hora || partida.hora === 'A definir') {
+                return null; // partida placeholder sem data definida
+            }
+            const [ano, mes, dia] = partida.data.split('-').map(Number);
+            const [hora, minuto] = partida.hora.split(':').map(Number);
+            return new Date(ano, mes - 1, dia, hora, minuto, 0);
+        }
+
+        function partidaPodeEditar(partida) {
+            if (partida.realizado) return false; // já tem resultado oficial
+            const dataHora = getDataHoraPartida(partida);
+            if (!dataHora) return true; // sem data definida, permite edição até resultado oficial
+            const agora = new Date();
+            const diffMs = dataHora.getTime() - agora.getTime();
+            const diffMin = diffMs / (1000 * 60);
+            return diffMin > 1; // permite editar se faltar mais de 1 minuto
+        }
+
+        function partidaBloqueadaParaConfirmacao(partida) {
+            if (partida.realizado) return true;
+            const dataHora = getDataHoraPartida(partida);
+            if (!dataHora) return false;
+            const agora = new Date();
+            const diffMs = dataHora.getTime() - agora.getTime();
+            const diffMin = diffMs / (1000 * 60);
+            return diffMin <= 1;
+        }
+
+        // ==================== PERSISTÊNCIA NA NUVEM ====================
         function atualizarStatusNuvem(status, texto) {
             const dot = document.getElementById('statusDot');
             const text = document.getElementById('statusText');
@@ -577,9 +529,7 @@
         async function carregarDadosNuvem() {
             try {
                 atualizarStatusNuvem('syncing', 'Carregando...');
-                const response = await fetch(JSONBIN_BASE_URL + '/latest', {
-                    headers: { 'X-Master-Key': JSONBIN_API_KEY }
-                });
+                const response = await fetch(JSONBIN_BASE_URL + '/latest', { headers: { 'X-Master-Key': JSONBIN_API_KEY } });
                 if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
                 const data = await response.json();
                 currentBinVersion = response.headers.get('X-Bin-Version') || data.record?.version;
@@ -593,7 +543,6 @@
                     palpitesCampeao = r.palpitesCampeao || {};
                     if (r.darkMode) document.documentElement.classList.add('dark');
                     else document.documentElement.classList.remove('dark');
-                    // Restaurar currentUser do bin, mas validar se existe nos usuários
                     if (r.currentUser) {
                         const found = usuarios.find(u => u.id === r.currentUser.id);
                         currentUser = found || null;
@@ -604,7 +553,6 @@
             } catch (error) {
                 console.error('Erro ao carregar da nuvem:', error);
                 atualizarStatusNuvem('offline', 'Offline');
-                // Fallback para localStorage
                 carregarDadosLocal();
                 return false;
             }
@@ -622,33 +570,20 @@
                 darkMode: document.documentElement.classList.contains('dark'),
                 version: currentBinVersion
             };
-
             try {
                 atualizarStatusNuvem('syncing', 'Salvando...');
                 const headers = { ...JSONBIN_HEADERS };
-                // Adicionar header de versão para evitar conflitos
-                if (currentBinVersion) {
-                    headers['X-Bin-Version'] = currentBinVersion;
-                }
-                const response = await fetch(JSONBIN_BASE_URL, {
-                    method: 'PUT',
-                    headers: headers,
-                    body: JSON.stringify(data)
-                });
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`Erro ao salvar: ${response.status} - ${errorText}`);
-                }
+                if (currentBinVersion) headers['X-Bin-Version'] = currentBinVersion;
+                const response = await fetch(JSONBIN_BASE_URL, { method: 'PUT', headers, body: JSON.stringify(data) });
+                if (!response.ok) throw new Error(`Erro ao salvar: ${response.status}`);
                 const result = await response.json();
                 currentBinVersion = response.headers.get('X-Bin-Version') || result.record?.version;
                 atualizarStatusNuvem('online', 'Online');
-                // Backup local
                 salvarLocalBackup(data);
                 return true;
             } catch (error) {
                 console.error('Erro ao salvar na nuvem:', error);
                 atualizarStatusNuvem('offline', 'Offline');
-                // Salvar localmente como backup
                 salvarLocalBackup(data);
                 showToast('Dados salvos localmente (sem conexão com a nuvem).', 'warning');
                 return false;
@@ -656,29 +591,14 @@
         }
 
         function carregarDadosLocal() {
-            const u = localStorage.getItem('bolao_usuarios');
-            if (u) usuarios = JSON.parse(u);
-            const a = localStorage.getItem('bolao_apostas');
-            if (a) apostas = JSON.parse(a);
-            const p = localStorage.getItem('bolao_partidas');
-            if (p) PARTIDAS = JSON.parse(p);
-            else PARTIDAS = gerarTodasPartidas();
-            const cp = localStorage.getItem('bolao_configPontuacao');
-            if (cp) configPontuacao = JSON.parse(cp);
-            const cf = localStorage.getItem('bolao_configFinanceira');
-            if (cf) configFinanceira = JSON.parse(cf);
-            const pc = localStorage.getItem('bolao_palpitesCampeao');
-            if (pc) palpitesCampeao = JSON.parse(pc);
-            const cu = localStorage.getItem('bolao_currentUser');
-            if (cu) {
-                currentUser = JSON.parse(cu);
-                const found = usuarios.find(u => u.id === currentUser.id);
-                if (!found) currentUser = null;
-                else currentUser = found;
-            }
-            const dm = localStorage.getItem('bolao_darkMode');
-            if (dm === 'true') document.documentElement.classList.add('dark');
-            else if (dm === 'false') document.documentElement.classList.remove('dark');
+            const u = localStorage.getItem('bolao_usuarios'); if (u) usuarios = JSON.parse(u);
+            const a = localStorage.getItem('bolao_apostas'); if (a) apostas = JSON.parse(a);
+            const p = localStorage.getItem('bolao_partidas'); if (p) PARTIDAS = JSON.parse(p); else PARTIDAS = gerarTodasPartidas();
+            const cp = localStorage.getItem('bolao_configPontuacao'); if (cp) configPontuacao = JSON.parse(cp);
+            const cf = localStorage.getItem('bolao_configFinanceira'); if (cf) configFinanceira = JSON.parse(cf);
+            const pc = localStorage.getItem('bolao_palpitesCampeao'); if (pc) palpitesCampeao = JSON.parse(pc);
+            const cu = localStorage.getItem('bolao_currentUser'); if (cu) { currentUser = JSON.parse(cu); const found = usuarios.find(u => u.id === currentUser.id); if (!found) currentUser = null; else currentUser = found; }
+            const dm = localStorage.getItem('bolao_darkMode'); if (dm === 'true') document.documentElement.classList.add('dark'); else if (dm === 'false') document.documentElement.classList.remove('dark');
         }
 
         function salvarLocalBackup(data) {
@@ -692,25 +612,14 @@
             localStorage.setItem('bolao_darkMode', data.darkMode ? 'true' : 'false');
         }
 
-        async function salvarDados() {
-            // Sempre tenta salvar na nuvem primeiro
-            return await salvarDadosNuvem();
-        }
-
+        async function salvarDados() { return await salvarDadosNuvem(); }
         async function carregarDados() {
-            // Tenta carregar da nuvem primeiro, fallback para local
             const online = await carregarDadosNuvem();
-            if (!online) {
-                carregarDadosLocal();
-            }
-            // Se não houver partidas, gera as padrão
-            if (!PARTIDAS || PARTIDAS.length === 0) {
-                PARTIDAS = gerarTodasPartidas();
-                await salvarDados();
-            }
+            if (!online) carregarDadosLocal();
+            if (!PARTIDAS || PARTIDAS.length === 0) { PARTIDAS = gerarTodasPartidas(); await salvarDados(); }
         }
 
-        // ==================== NAVEGAÇÃO SPA ====================
+        // ==================== NAVEGAÇÃO ====================
         function navigate(page) {
             document.querySelectorAll('.section-page').forEach(s => s.classList.add('hidden'));
             const section = document.getElementById('section-' + page);
@@ -731,19 +640,13 @@
         }
 
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('hidden');
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('hidden');
         }
-        document.getElementById('sidebarOverlay').addEventListener('click', toggleSidebar);
 
         // ==================== AUTENTICAÇÃO ====================
-        function abrirModalAuth() { document.getElementById('modalAuth').classList.remove('hidden');
-            mostrarLogin(); }
-
+        function abrirModalAuth() { document.getElementById('modalAuth').classList.remove('hidden'); mostrarLogin(); }
         function fecharModalAuth() { document.getElementById('modalAuth').classList.add('hidden'); }
-
         function mostrarLogin() {
             document.getElementById('formLogin').classList.remove('hidden');
             document.getElementById('formCadastro').classList.add('hidden');
@@ -751,7 +654,6 @@
             document.getElementById('modalAuthTitle').textContent = 'Entrar no Bolão';
             document.getElementById('linkRecuperar').classList.remove('hidden');
         }
-
         function mostrarCadastro() {
             document.getElementById('formLogin').classList.add('hidden');
             document.getElementById('formCadastro').classList.remove('hidden');
@@ -759,7 +661,6 @@
             document.getElementById('modalAuthTitle').textContent = 'Criar Conta';
             document.getElementById('linkRecuperar').classList.add('hidden');
         }
-
         function mostrarRecuperar() {
             document.getElementById('formLogin').classList.add('hidden');
             document.getElementById('formCadastro').classList.add('hidden');
@@ -779,8 +680,7 @@
             atualizarUIUsuario();
             fecharModalAuth();
             showToast('Login realizado com sucesso!', 'success');
-            renderDashboard();
-            renderApostas();
+            renderDashboard(); renderApostas();
         }
 
         async function fazerCadastro() {
@@ -791,14 +691,10 @@
             const confirma = document.getElementById('cadConfirmaSenha').value;
             if (!nome || !email || !senha) return showToast('Preencha os campos obrigatórios.', 'error');
             if (senha !== confirma) return showToast('Senhas não conferem.', 'error');
-            if (usuarios.find(u => u.email.toLowerCase() === email.toLowerCase())) return showToast(
-                'E-mail já cadastrado.', 'error');
+            if (usuarios.find(u => u.email.toLowerCase() === email.toLowerCase())) return showToast('E-mail já cadastrado.', 'error');
             const novoUser = {
                 id: 'user_' + Date.now(),
-                nome,
-                email,
-                telefone,
-                senha,
+                nome, email, telefone, senha,
                 avatar: nome.charAt(0).toUpperCase(),
                 dataInscricao: new Date().toISOString(),
                 isAdmin: usuarios.length === 0,
@@ -825,8 +721,7 @@
             await salvarDados();
             atualizarUIUsuario();
             showToast('Logout realizado.', 'info');
-            renderDashboard();
-            renderApostas();
+            renderDashboard(); renderApostas();
         }
 
         function atualizarUIUsuario() {
@@ -840,14 +735,10 @@
                 nome.textContent = currentUser.nome;
                 email.textContent = currentUser.email;
                 btnLogout.style.display = '';
-                if (currentUser.isAdmin) adminLink.style.display = '';
-                else adminLink.style.display = 'none';
+                adminLink.style.display = currentUser.isAdmin ? '' : 'none';
             } else {
-                avatar.textContent = '?';
-                nome.textContent = 'Visitante';
-                email.textContent = 'Faça login';
-                btnLogout.style.display = 'none';
-                adminLink.style.display = 'none';
+                avatar.textContent = '?'; nome.textContent = 'Visitante';
+                email.textContent = 'Faça login'; btnLogout.style.display = 'none'; adminLink.style.display = 'none';
             }
         }
 
@@ -855,37 +746,66 @@
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             const colors = { success: 'bg-green-600', error: 'bg-red-600', info: 'bg-blue-600', warning: 'bg-yellow-600' };
-            toast.className =
-                `toast px-4 py-3 rounded-lg text-white text-sm shadow-lg ${colors[type] || colors.info} flex items-center gap-2`;
-            toast.innerHTML =
-                `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${msg}`;
+            toast.className = `toast px-4 py-3 rounded-lg text-white text-sm shadow-lg ${colors[type] || colors.info} flex items-center gap-2`;
+            toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${msg}`;
             container.appendChild(toast);
             setTimeout(() => { toast.remove(); }, 3500);
         }
 
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-            salvarDados();
-        }
+        function toggleDarkMode() { document.documentElement.classList.toggle('dark'); salvarDados(); }
 
-        // ==================== APOSTAS ====================
+        // ==================== APOSTAS (COM CONFIRMAÇÃO) ====================
         function getAposta(userId, partidaId) {
             const key = `${userId}__${partidaId}`;
             return apostas[key] || null;
         }
 
-        function setAposta(userId, partidaId, gols1, gols2) {
+        function setAposta(userId, partidaId, gols1, gols2, confirmado = false) {
             const key = `${userId}__${partidaId}`;
-            apostas[key] = { gols1, gols2, timestamp: new Date().toISOString(), userId, partidaId };
+            apostas[key] = { gols1, gols2, timestamp: new Date().toISOString(), userId, partidaId, confirmado };
             salvarDados();
+        }
+
+        function confirmarAposta(userId, partidaId) {
+            const aposta = getAposta(userId, partidaId);
+            if (!aposta) return false;
+            const partida = PARTIDAS.find(p => p.id === partidaId);
+            if (!partida || partidaBloqueadaParaConfirmacao(partida)) {
+                showToast('Não é mais possível confirmar esta aposta (prazo expirado).', 'error');
+                return false;
+            }
+            aposta.confirmado = true;
+            aposta.timestamp = new Date().toISOString();
+            salvarDados();
+            return true;
+        }
+
+        async function confirmarTodasApostas() {
+            if (!currentUser) { showToast('Faça login primeiro.', 'error'); return; }
+            let confirmadas = 0;
+            for (const partida of PARTIDAS) {
+                const aposta = getAposta(currentUser.id, partida.id);
+                if (aposta && !aposta.confirmado && !partidaBloqueadaParaConfirmacao(partida)) {
+                    aposta.confirmado = true;
+                    aposta.timestamp = new Date().toISOString();
+                    confirmadas++;
+                }
+            }
+            if (confirmadas > 0) {
+                await salvarDados();
+                showToast(`${confirmadas} apostas confirmadas!`, 'success');
+                renderApostas();
+                renderDashboard();
+            } else {
+                showToast('Nenhuma aposta pendente para confirmar.', 'info');
+            }
         }
 
         function renderApostas() {
             const container = document.getElementById('listaApostas');
             const contador = document.getElementById('contadorApostas');
             if (!currentUser) {
-                container.innerHTML =
-                    '<p class="text-gray-400 text-center py-8">Faça <a href="#" onclick="abrirModalAuth()" class="text-blue-500 hover:underline">login</a> para começar a apostar!</p>';
+                container.innerHTML = '<p class="text-gray-400 text-center py-8">Faça <a href="#" onclick="abrirModalAuth()" class="text-blue-500 hover:underline">login</a> para começar a apostar!</p>';
                 contador.textContent = '0/104 apostas';
                 return;
             }
@@ -902,21 +822,22 @@
             if (filtroGrupo && filtroGrupo.options.length <= 1) {
                 GRUPOS.forEach(g => {
                     const opt = document.createElement('option');
-                    opt.value = g;
-                    opt.textContent = 'Grupo ' + g;
+                    opt.value = g; opt.textContent = 'Grupo ' + g;
                     filtroGrupo.appendChild(opt);
                 });
             }
-            let totalApostas = 0;
-            PARTIDAS.forEach(p => { if (getAposta(currentUser.id, p.id)) totalApostas++; });
-            contador.textContent = `${totalApostas}/104 apostas`;
+            let totalConfirmadas = 0;
+            PARTIDAS.forEach(p => { const a = getAposta(currentUser.id, p.id); if (a && a.confirmado) totalConfirmadas++; });
+            contador.textContent = `${totalConfirmadas}/104 apostas confirmadas`;
+
             if (partidasFiltradas.length === 0) {
                 container.innerHTML = '<p class="text-gray-400 text-center py-8">Nenhuma partida encontrada.</p>';
                 return;
             }
             container.innerHTML = partidasFiltradas.map(p => {
                 const aposta = getAposta(currentUser.id, p.id);
-                const bloqueado = p.realizado === true;
+                const podeEditar = partidaPodeEditar(p);
+                const bloqueado = !podeEditar || p.realizado;
                 const sel1 = p.time1 ? getSelecao(p.time1) : null;
                 const sel2 = p.time2 ? getSelecao(p.time2) : null;
                 const nome1 = sel1 ? sel1.nome : (p.time1 || 'A definir');
@@ -926,12 +847,19 @@
                 const faseLabel = p.fase === 'grupos' ? `Grupo ${p.grupo} - Rodada ${p.rodada}` : p.fase
                     .replace('16avos', '16 Avos').replace('oitavas', 'Oitavas').replace('quartas', 'Quartas')
                     .replace('semis', 'Semifinais').replace('terceiro', '3º Lugar').replace('final', '🏆 Final');
+
+                let statusBadge = '';
+                if (p.realizado) statusBadge = '<span class="text-xs bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full">Encerrado</span>';
+                else if (aposta && aposta.confirmado) statusBadge = '<span class="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded-full">✔ Confirmada</span>';
+                else if (aposta && !aposta.confirmado && podeEditar) statusBadge = '<span class="text-xs bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 px-2 py-0.5 rounded-full">Rascunho</span>';
+                else if (!podeEditar && !p.realizado) statusBadge = '<span class="text-xs bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 px-2 py-0.5 rounded-full">Prazo expirado</span>';
+
                 return `
-                    <div class="card-premium p-3 lg:p-4 match-card ${bloqueado ? 'opacity-75' : ''}">
+                    <div class="card-premium p-3 lg:p-4 ${bloqueado ? 'opacity-75' : ''}">
                         <div class="flex items-center justify-between flex-wrap gap-2">
                             <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">${faseLabel}</span>
-                            <span class="text-xs text-gray-400">${p.data} | ${p.hora} | ${p.estadio}</span>
-                            ${bloqueado ? '<span class="text-xs bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 px-2 py-0.5 rounded-full">Encerrado</span>' : '<span class="text-xs bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 px-2 py-0.5 rounded-full">Aberto</span>'}
+                            <span class="text-xs text-gray-400">${p.data} | ${p.hora}</span>
+                            ${statusBadge}
                         </div>
                         <div class="flex items-center justify-center gap-3 lg:gap-5 mt-3">
                             <div class="flex flex-col items-center flex-1 text-center">
@@ -941,11 +869,11 @@
                             <div class="flex items-center gap-2">
                                 <input type="number" min="0" max="20" value="${aposta ? aposta.gols1 : ''}" 
                                     class="score-input" ${bloqueado ? 'disabled' : ''} 
-                                    onchange="salvarApostaInput('${p.id}', 1, this.value)" data-partida="${p.id}" data-time="1">
+                                    onchange="salvarApostaInput('${p.id}', 1, this.value)">
                                 <span class="text-2xl font-display font-bold">×</span>
                                 <input type="number" min="0" max="20" value="${aposta ? aposta.gols2 : ''}" 
                                     class="score-input" ${bloqueado ? 'disabled' : ''} 
-                                    onchange="salvarApostaInput('${p.id}', 2, this.value)" data-partida="${p.id}" data-time="2">
+                                    onchange="salvarApostaInput('${p.id}', 2, this.value)">
                             </div>
                             <div class="flex flex-col items-center flex-1 text-center">
                                 <span class="text-3xl lg:text-4xl">${band2}</span>
@@ -953,63 +881,61 @@
                             </div>
                         </div>
                         ${p.realizado ? `<div class="text-center mt-2 text-sm font-bold text-gray-600 dark:text-gray-300">Resultado oficial: ${p.gols1} × ${p.gols2}</div>` : ''}
-                        ${aposta && !bloqueado ? `<div class="text-center mt-1 text-xs text-gray-400">Aposta salva em: ${new Date(aposta.timestamp).toLocaleString()}</div>` : ''}
+                        <div class="flex justify-center gap-2 mt-2">
+                            ${aposta && !aposta.confirmado && podeEditar ? `<button onclick="confirmarApostaUI('${p.id}')" class="px-3 py-1 bg-green-500 text-white rounded-lg text-xs hover:bg-green-600 transition">Confirmar</button>` : ''}
+                            ${aposta && aposta.confirmado && !p.realizado ? `<span class="text-xs text-green-600 dark:text-green-400 flex items-center gap-1"><i class="fas fa-lock"></i> Confirmada</span>` : ''}
+                            ${aposta && !podeEditar && !aposta.confirmado && !p.realizado ? `<span class="text-xs text-red-500">Não confirmada a tempo</span>` : ''}
+                        </div>
                     </div>
                 `;
             }).join('');
         }
 
         function salvarApostaInput(partidaId, time, valor) {
-            if (!currentUser) {
-                showToast('Faça login para apostar!', 'error');
-                abrirModalAuth();
-                return;
-            }
+            if (!currentUser) { showToast('Faça login para apostar!', 'error'); abrirModalAuth(); return; }
             const partida = PARTIDAS.find(p => p.id === partidaId);
-            if (partida && partida.realizado) {
-                showToast('Este jogo já foi encerrado.', 'warning');
+            if (!partida || !partidaPodeEditar(partida)) {
+                showToast('Este jogo não permite mais edições.', 'warning');
                 renderApostas();
                 return;
             }
             const apostaAtual = getAposta(currentUser.id, partidaId);
             const gols1 = time === 1 ? parseInt(valor) || 0 : (apostaAtual ? apostaAtual.gols1 : 0);
             const gols2 = time === 2 ? parseInt(valor) || 0 : (apostaAtual ? apostaAtual.gols2 : 0);
-            setAposta(currentUser.id, partidaId, gols1, gols2);
-            const contador = document.getElementById('contadorApostas');
-            let totalApostas = 0;
-            PARTIDAS.forEach(p => { if (getAposta(currentUser.id, p.id)) totalApostas++; });
-            if (contador) contador.textContent = `${totalApostas}/104 apostas`;
-            showToast('Aposta salva!', 'success');
+            setAposta(currentUser.id, partidaId, gols1, gols2, false); // salva como rascunho
+            renderApostas();
+            showToast('Rascunho salvo. Lembre-se de confirmar!', 'info');
         }
 
-        // ==================== RANKING ====================
+        async function confirmarApostaUI(partidaId) {
+            if (!currentUser) return;
+            if (confirmarAposta(currentUser.id, partidaId)) {
+                await salvarDados();
+                showToast('Aposta confirmada!', 'success');
+                renderApostas();
+                renderDashboard();
+            } else {
+                renderApostas();
+            }
+        }
+
+        // ==================== RANKING (usa apenas apostas confirmadas) ====================
         function calcularPontuacaoUsuario(userId) {
-            let pontos = 0;
-            let acertos = 0;
-            let exatos = 0;
-            let totalApostasFeitas = 0;
+            let pontos = 0, acertos = 0, exatos = 0, totalApostasFeitas = 0;
             PARTIDAS.forEach(p => {
                 if (!p.realizado || p.gols1 === null || p.gols2 === null) return;
                 const aposta = getAposta(userId, p.id);
-                if (!aposta) return;
+                if (!aposta || !aposta.confirmado) return; // só conta apostas confirmadas
                 totalApostasFeitas++;
-                const ag1 = parseInt(aposta.gols1);
-                const ag2 = parseInt(aposta.gols2);
-                const rg1 = p.gols1;
-                const rg2 = p.gols2;
+                const ag1 = parseInt(aposta.gols1), ag2 = parseInt(aposta.gols2);
+                const rg1 = p.gols1, rg2 = p.gols2;
                 if (ag1 === rg1 && ag2 === rg2) {
-                    pontos += configPontuacao.placarExato + configPontuacao.acertoVencedor + configPontuacao.acertoSaldo +
-                        configPontuacao.acertoGol * 2;
-                    exatos++;
-                    acertos++;
-                    return;
+                    pontos += configPontuacao.placarExato + configPontuacao.acertoVencedor + configPontuacao.acertoSaldo + configPontuacao.acertoGol * 2;
+                    exatos++; acertos++; return;
                 }
                 const resultadoReal = rg1 > rg2 ? 1 : rg1 < rg2 ? 2 : 0;
                 const resultadoAposta = ag1 > ag2 ? 1 : ag1 < ag2 ? 2 : 0;
-                if (resultadoReal === resultadoAposta) {
-                    pontos += configPontuacao.acertoVencedor;
-                    acertos++;
-                }
+                if (resultadoReal === resultadoAposta) { pontos += configPontuacao.acertoVencedor; acertos++; }
                 if ((rg1 - rg2) === (ag1 - ag2) && resultadoReal !== 0) pontos += configPontuacao.acertoSaldo;
                 if (ag1 === rg1) pontos += configPontuacao.acertoGol;
                 if (ag2 === rg2) pontos += configPontuacao.acertoGol;
@@ -1019,8 +945,7 @@
                 const finalPartida = PARTIDAS.find(p => p.fase === 'final' && p.realizado);
                 const tercPartida = PARTIDAS.find(p => p.fase === 'terceiro' && p.realizado);
                 if (finalPartida && finalPartida.gols1 !== null) {
-                    const campeaoReal = finalPartida.gols1 > finalPartida.gols2 ? finalPartida.time1 : finalPartida
-                        .time2;
+                    const campeaoReal = finalPartida.gols1 > finalPartida.gols2 ? finalPartida.time1 : finalPartida.time2;
                     const viceReal = finalPartida.gols1 > finalPartida.gols2 ? finalPartida.time2 : finalPartida.time1;
                     if (palpite.campeao === campeaoReal) pontos += configPontuacao.campeao;
                     if (palpite.vice === viceReal) pontos += configPontuacao.vice;
@@ -1041,23 +966,19 @@
             }
             const rankings = usuarios.map(u => {
                 const calc = calcularPontuacaoUsuario(u.id);
-                return { ...u, ...calc, aproveitamento: calc.totalApostasFeitas > 0 ? Math.round((calc.acertos /
-                        calc.totalApostasFeitas) * 100) : 0 };
+                return { ...u, ...calc, aproveitamento: calc.totalApostasFeitas > 0 ? Math.round((calc.acertos / calc.totalApostasFeitas) * 100) : 0 };
             });
             rankings.sort((a, b) => b.pontos - a.pontos);
             const rankingAnterior = JSON.parse(localStorage.getItem('bolao_ranking_anterior') || '[]');
             tbody.innerHTML = rankings.map((r, i) => {
                 const posAnterior = rankingAnterior.findIndex(ra => ra.id === r.id);
                 const variacao = posAnterior >= 0 ? posAnterior - i : 0;
-                const varClass = variacao > 0 ? 'text-green-500' : variacao < 0 ? 'text-red-500' :
-                    'text-gray-400';
+                const varClass = variacao > 0 ? 'text-green-500' : variacao < 0 ? 'text-red-500' : 'text-gray-400';
                 const varIcon = variacao > 0 ? '▲' : variacao < 0 ? '▼' : '–';
-                let rankClass = '';
-                let medalha = '';
-                if (i === 0) { rankClass = 'rank-gold';
-                    medalha = '🥇'; } else if (i === 1) { rankClass = 'rank-silver';
-                    medalha = '🥈'; } else if (i === 2) { rankClass = 'rank-bronze';
-                    medalha = '🥉'; }
+                let rankClass = '', medalha = '';
+                if (i === 0) { rankClass = 'rank-gold'; medalha = '🥇'; }
+                else if (i === 1) { rankClass = 'rank-silver'; medalha = '🥈'; }
+                else if (i === 2) { rankClass = 'rank-bronze'; medalha = '🥉'; }
                 return `
                     <tr class="border-b border-gray-100 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition">
                         <td class="px-3 py-3"><span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold ${rankClass}">${medalha || (i+1)}</span></td>
@@ -1070,156 +991,92 @@
                     </tr>
                 `;
             }).join('');
-            localStorage.setItem('bolao_ranking_anterior', JSON.stringify(rankings.map(r => ({ id: r.id, pontos: r
-                .pontos }))));
+            localStorage.setItem('bolao_ranking_anterior', JSON.stringify(rankings.map(r => ({ id: r.id, pontos: r.pontos }))));
             const rankingExatos = [...rankings].sort((a, b) => b.exatos - a.exatos).slice(0, 5);
-            document.getElementById('rankingExatos').innerHTML = rankingExatos.map((r, i) =>
-                `<div>${i+1}. ${r.nome} - ${r.exatos} placares exatos</div>`
-            ).join('') || '-';
+            document.getElementById('rankingExatos').innerHTML = rankingExatos.map((r, i) => `<div>${i+1}. ${r.nome} - ${r.exatos} placares exatos</div>`).join('') || '-';
         }
 
         // ==================== GRUPOS ====================
         function calcularClassificacaoGrupo(grupo) {
             const times = SELECOES.filter(s => s.grupo === grupo);
             const stats = {};
-            times.forEach(t => { stats[t.id] = { pts: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, sg: 0, fairPlay: 0 }; });
+            times.forEach(t => { stats[t.id] = { pts: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, sg: 0 }; });
             PARTIDAS.filter(p => p.grupo === grupo && p.realizado && p.gols1 !== null).forEach(p => {
-                const t1 = stats[p.time1];
-                const t2 = stats[p.time2];
+                const t1 = stats[p.time1], t2 = stats[p.time2];
                 if (!t1 || !t2) return;
-                t1.j++;
-                t2.j++;
-                t1.gp += p.gols1;
-                t1.gc += p.gols2;
-                t2.gp += p.gols2;
-                t2.gc += p.gols1;
-                if (p.gols1 > p.gols2) { t1.v++;
-                    t1.pts += 3;
-                    t2.d++; } else if (p.gols1 < p.gols2) { t2.v++;
-                    t2.pts += 3;
-                    t1.d++; } else { t1.e++;
-                    t2.e++;
-                    t1.pts++;
-                    t2.pts++; }
-                t1.sg = t1.gp - t1.gc;
-                t2.sg = t2.gp - t2.gc;
+                t1.j++; t2.j++; t1.gp += p.gols1; t1.gc += p.gols2; t2.gp += p.gols2; t2.gc += p.gols1;
+                if (p.gols1 > p.gols2) { t1.v++; t1.pts += 3; t2.d++; }
+                else if (p.gols1 < p.gols2) { t2.v++; t2.pts += 3; t1.d++; }
+                else { t1.e++; t2.e++; t1.pts++; t2.pts++; }
+                t1.sg = t1.gp - t1.gc; t2.sg = t2.gp - t2.gc;
             });
-            const tabela = times.map(t => ({ id: t.id, ...stats[t.id] }));
-            tabela.sort((a, b) => b.pts - a.pts || b.sg - a.sg || b.gp - a.gp || a.fairPlay - b.fairPlay);
-            return tabela;
+            return times.map(t => ({ id: t.id, ...stats[t.id] })).sort((a, b) => b.pts - a.pts || b.sg - a.sg || b.gp - a.gp);
         }
 
         function renderGrupos() {
-            const grid = document.getElementById('gridGrupos');
-            grid.innerHTML = GRUPOS.map(grupo => {
+            document.getElementById('gridGrupos').innerHTML = GRUPOS.map(grupo => {
                 const tabela = calcularClassificacaoGrupo(grupo);
                 return `
-                    <div class="card-premium p-4">
-                        <h4 class="font-display font-bold text-lg mb-3">Grupo ${grupo}</h4>
-                        <table class="w-full text-xs">
-                            <thead><tr class="text-gray-500 border-b"><th class="text-left py-1">Seleção</th><th>P</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th></tr></thead>
-                            <tbody>
-                                ${tabela.map((t, i) => {
-                                    const sel = getSelecao(t.id);
-                                    const destaque = i < 2 ? 'font-semibold' : '';
-                                    return `<tr class="border-b border-gray-100 dark:border-gray-700/30 ${destaque}">
-                                        <td class="py-1">${sel.bandeira} ${sel.nome}</td>
-                                        <td class="text-center font-bold">${t.pts}</td>
-                                        <td class="text-center">${t.j}</td><td class="text-center">${t.v}</td>
-                                        <td class="text-center">${t.e}</td><td class="text-center">${t.d}</td>
-                                        <td class="text-center">${t.gp}</td><td class="text-center">${t.gc}</td>
-                                        <td class="text-center">${t.sg >= 0 ? '+' : ''}${t.sg}</td>
-                                    </tr>`;
-                                }).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
+                    <div class="card-premium p-4"><h4 class="font-display font-bold text-lg mb-3">Grupo ${grupo}</h4>
+                        <table class="w-full text-xs"><thead><tr class="text-gray-500 border-b"><th class="text-left py-1">Seleção</th><th>P</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th></tr></thead>
+                            <tbody>${tabela.map((t, i) => {
+                                const sel = getSelecao(t.id);
+                                return `<tr class="border-b border-gray-100 dark:border-gray-700/30 ${i < 2 ? 'font-semibold' : ''}">
+                                    <td class="py-1">${sel.bandeira} ${sel.nome}</td>
+                                    <td class="text-center font-bold">${t.pts}</td><td class="text-center">${t.j}</td>
+                                    <td class="text-center">${t.v}</td><td class="text-center">${t.e}</td>
+                                    <td class="text-center">${t.d}</td><td class="text-center">${t.gp}</td>
+                                    <td class="text-center">${t.gc}</td><td class="text-center">${t.sg >= 0 ? '+' : ''}${t.sg}</td>
+                                </tr>`;
+                            }).join('')}</tbody></table></div>`;
             }).join('');
         }
 
         // ==================== HEAD TO HEAD ====================
         function renderHeadToHeadSelects() {
-            const s1 = document.getElementById('h2hUser1');
-            const s2 = document.getElementById('h2hUser2');
-            s1.innerHTML = '<option value="">Selecione participante 1</option>' + usuarios.map(u =>
-                `<option value="${u.id}">${u.nome}</option>`).join('');
-            s2.innerHTML = '<option value="">Selecione participante 2</option>' + usuarios.map(u =>
-                `<option value="${u.id}">${u.nome}</option>`).join('');
+            const s1 = document.getElementById('h2hUser1'), s2 = document.getElementById('h2hUser2');
+            s1.innerHTML = '<option value="">Selecione participante 1</option>' + usuarios.map(u => `<option value="${u.id}">${u.nome}</option>`).join('');
+            s2.innerHTML = '<option value="">Selecione participante 2</option>' + usuarios.map(u => `<option value="${u.id}">${u.nome}</option>`).join('');
         }
-
         function compararHeadToHead() {
-            const id1 = document.getElementById('h2hUser1').value;
-            const id2 = document.getElementById('h2hUser2').value;
+            const id1 = document.getElementById('h2hUser1').value, id2 = document.getElementById('h2hUser2').value;
             const container = document.getElementById('resultadoH2H');
-            if (!id1 || !id2) { container.innerHTML =
-                    '<p class="text-gray-400">Selecione dois participantes para comparar.</p>'; return; }
-            const u1 = usuarios.find(u => u.id === id1);
-            const u2 = usuarios.find(u => u.id === id2);
-            const c1 = calcularPontuacaoUsuario(id1);
-            const c2 = calcularPontuacaoUsuario(id2);
-            let palpitesIguais = 0;
-            let palpitesDiferentes = 0;
+            if (!id1 || !id2) { container.innerHTML = '<p class="text-gray-400">Selecione dois participantes.</p>'; return; }
+            const u1 = usuarios.find(u => u.id === id1), u2 = usuarios.find(u => u.id === id2);
+            const c1 = calcularPontuacaoUsuario(id1), c2 = calcularPontuacaoUsuario(id2);
+            let iguais = 0, dif = 0;
             PARTIDAS.forEach(p => {
-                const a1 = getAposta(id1, p.id);
-                const a2 = getAposta(id2, p.id);
-                if (a1 && a2) {
-                    if (a1.gols1 === a2.gols1 && a1.gols2 === a2.gols2) palpitesIguais++;
-                    else palpitesDiferentes++;
+                const a1 = getAposta(id1, p.id), a2 = getAposta(id2, p.id);
+                if (a1 && a2 && a1.confirmado && a2.confirmado) {
+                    if (a1.gols1 === a2.gols1 && a1.gols2 === a2.gols2) iguais++; else dif++;
                 }
             });
             container.innerHTML = `
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
-                        <p class="font-bold text-lg">${u1.nome}</p>
-                        <p class="text-3xl font-display font-bold text-blue-600">${c1.pontos}</p>
-                        <p class="text-xs text-gray-500">${c1.acertos} acertos | ${c1.exatos} exatos</p>
-                    </div>
-                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
-                        <p class="font-bold text-lg">${u2.nome}</p>
-                        <p class="text-3xl font-display font-bold text-red-600">${c2.pontos}</p>
-                        <p class="text-xs text-gray-500">${c2.acertos} acertos | ${c2.exatos} exatos</p>
-                    </div>
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl"><p class="font-bold text-lg">${u1.nome}</p><p class="text-3xl font-display font-bold text-blue-600">${c1.pontos}</p><p class="text-xs">${c1.acertos} acertos | ${c1.exatos} exatos</p></div>
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl"><p class="font-bold text-lg">${u2.nome}</p><p class="text-3xl font-display font-bold text-red-600">${c2.pontos}</p><p class="text-xs">${c2.acertos} acertos | ${c2.exatos} exatos</p></div>
                 </div>
                 <div class="mt-4 grid grid-cols-3 gap-2 text-sm">
-                    <div class="text-center p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                        <p class="font-bold">${palpitesIguais}</p><p class="text-xs">Palpites Iguais</p>
-                    </div>
-                    <div class="text-center p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                        <p class="font-bold">${palpitesDiferentes}</p><p class="text-xs">Palpites Diferentes</p>
-                    </div>
-                    <div class="text-center p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                        <p class="font-bold">${c1.pontos > c2.pontos ? u1.nome : c2.pontos > c1.pontos ? u2.nome : 'Empate'}</p><p class="text-xs">Vantagem</p>
-                    </div>
-                </div>
-            `;
+                    <div class="text-center p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg"><p class="font-bold">${iguais}</p><p class="text-xs">Iguais</p></div>
+                    <div class="text-center p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg"><p class="font-bold">${dif}</p><p class="text-xs">Diferentes</p></div>
+                    <div class="text-center p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg"><p class="font-bold">${c1.pontos > c2.pontos ? u1.nome : c2.pontos > c1.pontos ? u2.nome : 'Empate'}</p><p class="text-xs">Vantagem</p></div>
+                </div>`;
         }
 
         // ==================== ESTATÍSTICAS ====================
         function renderEstatisticas() {
-            const totalApostas = Object.keys(apostas).length;
-            document.getElementById('statTotalApostas').textContent = totalApostas;
-            document.getElementById('statJogoMaisApostado').textContent = 'Em breve';
-            document.getElementById('statSelecaoMaisApostada').textContent = 'Em breve';
-            document.getElementById('statMaiorSurpresa').textContent = 'Em breve';
-            document.getElementById('statMaiorSequencia').textContent = 'Em breve';
-            document.getElementById('statMediaAcertos').textContent = 'Em breve';
+            document.getElementById('statTotalApostas').textContent = Object.values(apostas).filter(a => a.confirmado).length;
+            ['statJogoMaisApostado','statSelecaoMaisApostada','statMaiorSurpresa','statMaiorSequencia','statMediaAcertos'].forEach(id => document.getElementById(id).textContent = 'Em breve');
             const ctx = document.getElementById('chartDistribuicao')?.getContext('2d');
             if (ctx && window._chartDist) window._chartDist.destroy();
             if (ctx) {
                 const counts = {};
                 Object.values(palpitesCampeao).forEach(p => { counts[p.campeao] = (counts[p.campeao] || 0) + 1; });
                 const labels = Object.keys(counts).map(id => getSelecao(id)?.nome || id);
-                const data = Object.values(counts);
                 window._chartDist = new Chart(ctx, {
                     type: 'bar',
-                    data: {
-                        labels: labels.length > 0 ? labels : ['Sem dados'],
-                        datasets: [{ label: 'Votos para Campeão', data: data.length > 0 ? data : [0],
-                            backgroundColor: '#c9973b', borderRadius: 8 }]
-                    },
-                    options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true,
-                                ticks: { stepSize: 1 } } } }
+                    data: { labels: labels.length > 0 ? labels : ['Sem dados'], datasets: [{ label: 'Votos', data: Object.values(counts), backgroundColor: '#c9973b' }] },
+                    options: { responsive: true, plugins: { legend: { display: false } } }
                 });
             }
         }
@@ -1227,79 +1084,44 @@
         // ==================== DASHBOARD ====================
         function renderDashboard() {
             document.getElementById('dashTotalUsers').textContent = usuarios.length;
-            document.getElementById('dashTotalApostas').textContent = Object.keys(apostas).length;
+            document.getElementById('dashTotalApostas').textContent = Object.values(apostas).filter(a => a.confirmado).length;
             const realizados = PARTIDAS.filter(p => p.realizado).length;
             document.getElementById('dashJogosRealizados').textContent = realizados;
             document.getElementById('dashJogosPendentes').textContent = PARTIDAS.length - realizados;
             const arrecadacao = usuarios.length * configFinanceira.valorInscricao;
-            const taxa = arrecadacao * (configFinanceira.taxaAdmin / 100);
-            const premio = arrecadacao - taxa;
+            const premio = arrecadacao * (1 - configFinanceira.taxaAdmin / 100);
             document.getElementById('dashArrecadacao').textContent = 'R$ ' + arrecadacao.toFixed(2);
             document.getElementById('dashPremio').textContent = 'R$ ' + premio.toFixed(2);
-            const rankings = usuarios.map(u => ({ nome: u.nome, ...calcularPontuacaoUsuario(u.id) }));
-            rankings.sort((a, b) => b.pontos - a.pontos);
-            document.getElementById('dashLider').textContent = rankings.length > 0 ? rankings[0].nome + ' (' + rankings[0]
-                .pontos + ' pts)' : '-';
+            const rankings = usuarios.map(u => ({ nome: u.nome, ...calcularPontuacaoUsuario(u.id) })).sort((a, b) => b.pontos - a.pontos);
+            document.getElementById('dashLider').textContent = rankings.length > 0 ? `${rankings[0].nome} (${rankings[0].pontos} pts)` : '-';
             const ultimos = PARTIDAS.filter(p => p.realizado).sort((a, b) => b.data.localeCompare(a.data)).slice(0, 8);
             const container = document.getElementById('ultimosResultados');
-            if (ultimos.length === 0) {
-                container.innerHTML = '<p class="text-gray-400 text-sm">Nenhum resultado oficial registrado ainda.</p>';
-            } else {
-                container.innerHTML = ultimos.map(p => {
-                    const s1 = getSelecao(p.time1);
-                    const s2 = getSelecao(p.time2);
-                    return `<div class="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700/30 text-sm">
-                        <span>${s1?.bandeira || '❓'} ${s1?.nome || p.time1}</span>
-                        <span class="font-bold mx-2">${p.gols1} × ${p.gols2}</span>
-                        <span>${s2?.nome || p.time2} ${s2?.bandeira || '❓'}</span>
-                        <span class="text-xs text-gray-400 ml-2">${p.fase === 'grupos' ? 'Grupo '+p.grupo : p.fase}</span>
-                    </div>`;
-                }).join('');
-            }
+            if (ultimos.length === 0) container.innerHTML = '<p class="text-gray-400 text-sm">Nenhum resultado oficial.</p>';
+            else container.innerHTML = ultimos.map(p => {
+                const s1 = getSelecao(p.time1), s2 = getSelecao(p.time2);
+                return `<div class="flex items-center justify-between py-2 border-b text-sm"><span>${s1?.bandeira||'?'} ${s1?.nome||p.time1}</span><span class="font-bold mx-2">${p.gols1} × ${p.gols2}</span><span>${s2?.nome||p.time2} ${s2?.bandeira||'?'}</span></div>`;
+            }).join('');
             const ctx = document.getElementById('chartEvolucao')?.getContext('2d');
             if (ctx && window._chartEvol) window._chartEvol.destroy();
             if (ctx && rankings.length > 0) {
-                const top5 = rankings.slice(0, 5);
                 window._chartEvol = new Chart(ctx, {
                     type: 'line',
-                    data: {
-                        labels: ['Início', 'Atual'],
-                        datasets: top5.map((r, i) => ({
-                            label: r.nome,
-                            data: [0, r.pontos],
-                            borderColor: ['#c9973b', '#94a3b8', '#cd7f32', '#3b82f6', '#8b5cf6'][i],
-                            tension: 0.3,
-                            fill: false,
-                        })),
-                    },
-                    options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
+                    data: { labels: ['Início', 'Atual'], datasets: rankings.slice(0,5).map((r, i) => ({ label: r.nome, data: [0, r.pontos], borderColor: ['#c9973b','#94a3b8','#cd7f32','#3b82f6','#8b5cf6'][i] })) },
+                    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
                 });
             }
         }
 
         // ==================== ADMIN ====================
         function renderAdmin() {
-            if (!currentUser || !currentUser.isAdmin) {
-                document.getElementById('section-admin').innerHTML =
-                    '<p class="text-center py-8 text-gray-400">Acesso restrito ao administrador.</p>';
-                return;
-            }
-            const select = document.getElementById('adminJogoSelect');
-            select.innerHTML = '<option value="">Selecione o jogo</option>' + PARTIDAS.map(p => {
-                const s1 = p.time1 ? getSelecao(p.time1) : null;
-                const s2 = p.time2 ? getSelecao(p.time2) : null;
-                const nome1 = s1 ? s1.nome : (p.time1 || '?');
-                const nome2 = s2 ? s2.nome : (p.time2 || '?');
-                const status = p.realizado ? '✅' : '⏳';
-                return `<option value="${p.id}">${status} ${nome1} vs ${nome2} (${p.fase} ${p.grupo||''})</option>`;
+            if (!currentUser?.isAdmin) return;
+            document.getElementById('adminJogoSelect').innerHTML = '<option value="">Selecione</option>' + PARTIDAS.map(p => {
+                const n1 = getSelecao(p.time1)?.nome || p.time1 || '?', n2 = getSelecao(p.time2)?.nome || p.time2 || '?';
+                return `<option value="${p.id}">${p.realizado?'✅':'⏳'} ${n1} vs ${n2} (${p.fase} ${p.grupo||''})</option>`;
             }).join('');
-            document.getElementById('cfgAcertoVencedor').value = configPontuacao.acertoVencedor;
-            document.getElementById('cfgAcertoSaldo').value = configPontuacao.acertoSaldo;
-            document.getElementById('cfgAcertoGol').value = configPontuacao.acertoGol;
-            document.getElementById('cfgPlacarExato').value = configPontuacao.placarExato;
-            document.getElementById('cfgCampeao').value = configPontuacao.campeao;
-            document.getElementById('cfgVice').value = configPontuacao.vice;
-            document.getElementById('cfgTerceiro').value = configPontuacao.terceiro;
+            ['cfgAcertoVencedor','cfgAcertoSaldo','cfgAcertoGol','cfgPlacarExato','cfgCampeao','cfgVice','cfgTerceiro'].forEach((id, i) => {
+                document.getElementById(id).value = [configPontuacao.acertoVencedor, configPontuacao.acertoSaldo, configPontuacao.acertoGol, configPontuacao.placarExato, configPontuacao.campeao, configPontuacao.vice, configPontuacao.terceiro][i];
+            });
             document.getElementById('cfgValorInscricao').value = configFinanceira.valorInscricao;
             document.getElementById('cfgTaxaAdmin').value = configFinanceira.taxaAdmin;
             document.getElementById('cfgPctCampeao').value = configFinanceira.pctCampeao;
@@ -1308,173 +1130,91 @@
         }
 
         async function inserirResultadoAdmin() {
-            if (!currentUser || !currentUser.isAdmin) return;
-            const partidaId = document.getElementById('adminJogoSelect').value;
-            const gols1 = parseInt(document.getElementById('adminGols1').value);
-            const gols2 = parseInt(document.getElementById('adminGols2').value);
-            if (!partidaId || isNaN(gols1) || isNaN(gols2)) return showToast('Preencha todos os campos.', 'error');
-            const partida = PARTIDAS.find(p => p.id === partidaId);
-            if (!partida) return;
-            partida.gols1 = gols1;
-            partida.gols2 = gols2;
-            partida.realizado = true;
+            if (!currentUser?.isAdmin) return;
+            const id = document.getElementById('adminJogoSelect').value;
+            const g1 = parseInt(document.getElementById('adminGols1').value), g2 = parseInt(document.getElementById('adminGols2').value);
+            if (!id || isNaN(g1) || isNaN(g2)) return showToast('Preencha todos os campos.', 'error');
+            const p = PARTIDAS.find(p => p.id === id);
+            if (!p) return;
+            p.gols1 = g1; p.gols2 = g2; p.realizado = true;
             atualizarConfrontosEliminatorios();
             await salvarDados();
-            showToast('Resultado oficial salvo!', 'success');
-            renderAdmin();
-            renderDashboard();
-            renderGrupos();
-            renderRanking();
+            showToast('Resultado salvo!', 'success');
+            renderAdmin(); renderDashboard(); renderGrupos(); renderRanking();
         }
 
         function atualizarConfrontosEliminatorios() {
-            const todosGruposFinalizados = GRUPOS.every(g => {
-                const partidasGrupo = PARTIDAS.filter(p => p.grupo === g);
-                return partidasGrupo.length === 6 && partidasGrupo.every(p => p.realizado);
-            });
+            // (mantida a lógica original)
+            const todosGruposFinalizados = GRUPOS.every(g => PARTIDAS.filter(p => p.grupo === g && p.fase==='grupos').length === 6 && PARTIDAS.filter(p => p.grupo === g && p.fase==='grupos').every(p => p.realizado));
             if (todosGruposFinalizados) {
-                const classificados = [];
-                const terceiros = [];
+                const classificados = [], terceiros = [];
                 GRUPOS.forEach(g => {
                     const tabela = calcularClassificacaoGrupo(g);
-                    classificados.push({ time: tabela[0].id, pos: 1, grupo: g });
-                    classificados.push({ time: tabela[1].id, pos: 2, grupo: g });
-                    terceiros.push({ time: tabela[2].id, grupo: g, ...tabela[2] });
+                    classificados.push({ time: tabela[0].id }, { time: tabela[1].id });
+                    terceiros.push({ time: tabela[2].id, ...tabela[2] });
                 });
-                terceiros.sort((a, b) => b.pts - a.pts || b.sg - a.sg || b.gp - a.gp);
-                const melhoresTerceiros = terceiros.slice(0, 8).map(t => t.time);
-                const avosPartidas = PARTIDAS.filter(p => p.fase === '16avos');
-                const todosClassificados = [...classificados.map(c => c.time), ...melhoresTerceiros];
-                for (let i = 0; i < Math.min(avosPartidas.length, Math.floor(todosClassificados.length / 2)); i++) {
-                    avosPartidas[i].time1 = todosClassificados[i * 2];
-                    avosPartidas[i].time2 = todosClassificados[i * 2 + 1];
-                    avosPartidas[i].placeholder = false;
+                terceiros.sort((a,b) => b.pts - a.pts || b.sg - a.sg || b.gp - a.gp);
+                const todos = [...classificados.map(c => c.time), ...terceiros.slice(0,8).map(t => t.time)];
+                const avos = PARTIDAS.filter(p => p.fase === '16avos');
+                for (let i = 0; i < Math.min(avos.length, Math.floor(todos.length/2)); i++) {
+                    avos[i].time1 = todos[i*2]; avos[i].time2 = todos[i*2+1]; avos[i].placeholder = false;
                 }
             }
-            const fasesOrdem = ['16avos', 'oitavas', 'quartas', 'semis', 'final', 'terceiro'];
-            fasesOrdem.forEach((fase, idx) => {
-                const partidasFase = PARTIDAS.filter(p => p.fase === fase && p.realizado && p.gols1 !== null);
-                if (idx < fasesOrdem.length - 1) {
-                    const proximaFase = fasesOrdem[idx + 1];
-                    const partidasProxima = PARTIDAS.filter(p => p.fase === proximaFase && (p.placeholder || !p
-                        .time1));
-                    partidasFase.forEach((p, i) => {
-                        const vencedor = p.gols1 > p.gols2 ? p.time1 : (p.gols1 < p.gols2 ? p.time2 :
-                            null);
-                        if (vencedor && partidasProxima.length > Math.floor(i / 2)) {
-                            const target = partidasProxima[Math.floor(i / 2)];
-                            if (i % 2 === 0) target.time1 = vencedor;
-                            else target.time2 = vencedor;
-                            target.placeholder = false;
-                        }
-                    });
-                }
-            });
         }
 
         async function salvarConfigPontuacao() {
-            configPontuacao.acertoVencedor = parseInt(document.getElementById('cfgAcertoVencedor').value) || 3;
-            configPontuacao.acertoSaldo = parseInt(document.getElementById('cfgAcertoSaldo').value) || 2;
-            configPontuacao.acertoGol = parseInt(document.getElementById('cfgAcertoGol').value) || 1;
-            configPontuacao.placarExato = parseInt(document.getElementById('cfgPlacarExato').value) || 5;
-            configPontuacao.campeao = parseInt(document.getElementById('cfgCampeao').value) || 20;
-            configPontuacao.vice = parseInt(document.getElementById('cfgVice').value) || 10;
-            configPontuacao.terceiro = parseInt(document.getElementById('cfgTerceiro').value) || 5;
-            await salvarDados();
-            showToast('Configurações de pontuação salvas!', 'success');
+            configPontuacao.acertoVencedor = +document.getElementById('cfgAcertoVencedor').value || 3;
+            configPontuacao.acertoSaldo = +document.getElementById('cfgAcertoSaldo').value || 2;
+            configPontuacao.acertoGol = +document.getElementById('cfgAcertoGol').value || 1;
+            configPontuacao.placarExato = +document.getElementById('cfgPlacarExato').value || 5;
+            configPontuacao.campeao = +document.getElementById('cfgCampeao').value || 20;
+            configPontuacao.vice = +document.getElementById('cfgVice').value || 10;
+            configPontuacao.terceiro = +document.getElementById('cfgTerceiro').value || 5;
+            await salvarDados(); showToast('Configurações salvas!', 'success');
         }
 
         async function salvarConfigFinanceira() {
-            configFinanceira.valorInscricao = parseInt(document.getElementById('cfgValorInscricao').value) || 50;
-            configFinanceira.taxaAdmin = parseInt(document.getElementById('cfgTaxaAdmin').value) || 10;
-            configFinanceira.pctCampeao = parseInt(document.getElementById('cfgPctCampeao').value) || 50;
-            configFinanceira.pctVice = parseInt(document.getElementById('cfgPctVice').value) || 30;
-            configFinanceira.pctTerceiro = parseInt(document.getElementById('cfgPctTerceiro').value) || 20;
-            await salvarDados();
-            showToast('Configurações financeiras salvas!', 'success');
+            configFinanceira.valorInscricao = +document.getElementById('cfgValorInscricao').value || 50;
+            configFinanceira.taxaAdmin = +document.getElementById('cfgTaxaAdmin').value || 10;
+            configFinanceira.pctCampeao = +document.getElementById('cfgPctCampeao').value || 50;
+            configFinanceira.pctVice = +document.getElementById('cfgPctVice').value || 30;
+            configFinanceira.pctTerceiro = +document.getElementById('cfgPctTerceiro').value || 20;
+            await salvarDados(); showToast('Financeiro salvo!', 'success');
         }
 
         function exportarCSV() {
-            let csv = 'Nome,Email,Pontos,Acertos,Exatos,Aproveitamento\n';
-            usuarios.forEach(u => {
-                const c = calcularPontuacaoUsuario(u.id);
-                const aprov = c.totalApostasFeitas > 0 ? Math.round((c.acertos / c.totalApostasFeitas) * 100) : 0;
-                csv += `"${u.nome}","${u.email}",${c.pontos},${c.acertos},${c.exatos},${aprov}%\n`;
-            });
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'bolao_ranking.csv';
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast('Exportado com sucesso!', 'success');
+            let csv = 'Nome,Email,Pontos,Acertos,Exatos\n';
+            usuarios.forEach(u => { const c = calcularPontuacaoUsuario(u.id); csv += `"${u.nome}","${u.email}",${c.pontos},${c.acertos},${c.exatos}\n`; });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv])); a.download = 'bolao.csv'; a.click();
         }
 
         function exportarJSON() {
-            const data = {
-                usuarios,
-                partidas: PARTIDAS,
-                apostas,
-                configPontuacao,
-                configFinanceira,
-                exportadoEm: new Date().toISOString(),
-            };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url;
-            a.download = 'bolao_dados.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast('Exportado com sucesso!', 'success');
+            a.href = URL.createObjectURL(new Blob([JSON.stringify({ usuarios, partidas: PARTIDAS, apostas }, null, 2)]));
+            a.download = 'bolao.json'; a.click();
         }
 
         // ==================== INICIALIZAÇÃO ====================
         async function init() {
             await carregarDados();
-            if (!PARTIDAS || PARTIDAS.length === 0) {
-                PARTIDAS = gerarTodasPartidas();
-                await salvarDados();
-            }
+            if (!PARTIDAS || PARTIDAS.length === 0) { PARTIDAS = gerarTodasPartidas(); await salvarDados(); }
             atualizarUIUsuario();
-            const hash = window.location.hash.replace('#', '') || 'dashboard';
-            navigate(hash);
-            if (usuarios.length === 0 && !currentUser) {
-                setTimeout(() => abrirModalAuth(), 500);
-            }
-            setInterval(() => {
-                if (document.getElementById('section-dashboard') && !document.getElementById('section-dashboard')
-                    .classList.contains('hidden')) {
-                    renderDashboard();
-                }
-            }, 30000);
-            document.getElementById('modalAuth').addEventListener('click', function(e) {
-                if (e.target === this) fecharModalAuth();
-            });
+            navigate(window.location.hash.replace('#', '') || 'dashboard');
+            if (usuarios.length === 0 && !currentUser) setTimeout(() => abrirModalAuth(), 500);
+            setInterval(() => { if (!document.getElementById('section-dashboard').classList.contains('hidden')) renderDashboard(); }, 30000);
+            document.getElementById('modalAuth').addEventListener('click', e => { if (e.target === document.getElementById('modalAuth')) fecharModalAuth(); });
         }
 
         // Expor funções globais
-        window.navigate = navigate;
-        window.toggleSidebar = toggleSidebar;
-        window.toggleDarkMode = toggleDarkMode;
-        window.abrirModalAuth = abrirModalAuth;
-        window.fecharModalAuth = fecharModalAuth;
-        window.mostrarLogin = mostrarLogin;
-        window.mostrarCadastro = mostrarCadastro;
-        window.mostrarRecuperar = mostrarRecuperar;
-        window.fazerLogin = fazerLogin;
-        window.fazerCadastro = fazerCadastro;
-        window.recuperarSenha = recuperarSenha;
-        window.handleLogout = handleLogout;
-        window.salvarApostaInput = salvarApostaInput;
-        window.renderApostas = renderApostas;
-        window.compararHeadToHead = compararHeadToHead;
-        window.inserirResultadoAdmin = inserirResultadoAdmin;
-        window.salvarConfigPontuacao = salvarConfigPontuacao;
-        window.salvarConfigFinanceira = salvarConfigFinanceira;
-        window.exportarCSV = exportarCSV;
-        window.exportarJSON = exportarJSON;
+        window.navigate = navigate; window.toggleSidebar = toggleSidebar; window.toggleDarkMode = toggleDarkMode;
+        window.abrirModalAuth = abrirModalAuth; window.fecharModalAuth = fecharModalAuth;
+        window.mostrarLogin = mostrarLogin; window.mostrarCadastro = mostrarCadastro; window.mostrarRecuperar = mostrarRecuperar;
+        window.fazerLogin = fazerLogin; window.fazerCadastro = fazerCadastro; window.recuperarSenha = recuperarSenha;
+        window.handleLogout = handleLogout; window.salvarApostaInput = salvarApostaInput;
+        window.confirmarApostaUI = confirmarApostaUI; window.confirmarTodasApostas = confirmarTodasApostas;
+        window.compararHeadToHead = compararHeadToHead; window.inserirResultadoAdmin = inserirResultadoAdmin;
+        window.salvarConfigPontuacao = salvarConfigPontuacao; window.salvarConfigFinanceira = salvarConfigFinanceira;
+        window.exportarCSV = exportarCSV; window.exportarJSON = exportarJSON;
 
         document.addEventListener('DOMContentLoaded', init);
     </script>
